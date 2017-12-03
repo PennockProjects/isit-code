@@ -5,7 +5,9 @@
 describe('test elven-config suite', function() {
     'use strict';
 
-    const lastname = 'bcuser' || 'calvert';
+    const lastname = 'calvert';
+    const defaultDir = '/home/bcuser/';
+    const checkDir = '/home/charlie';
     const elfConfig = require('../index').elfConfig;
     const elfUtils = require('../index').elfUtils;
     const elfLog = require('../index').elfLog();
@@ -25,7 +27,7 @@ describe('test elven-config suite', function() {
         elfConfig.useLocalConfig = false;
         elfConfig.loadAsync()
             .then(function(data) {
-                expect(data.users[lastname]['base-dir']).toBe('/home/charlie/');
+                expect(data.users[lastname]['base-dir']).toBe(defaultDir);
                 expect(data.users[lastname]['bootswatch']).toBeDefined();
                 expect(data.users[lastname]['most-recent-date']).toBeDefined();
                 expect(data.users[lastname]['site-dirs']).toBeDefined();
@@ -71,7 +73,7 @@ describe('test elven-config suite', function() {
             .then(function(config) {
                 const keys = Object.keys(config.users[lastname]);
                 console.log(keys);
-                expect(config.users[lastname]['base-dir']).toBe('/home/charlie/');
+                expect(config.users[lastname]['base-dir']).toBe(defaultDir);
             })
             .catch(errorHandler)
             .then(done);
@@ -81,7 +83,7 @@ describe('test elven-config suite', function() {
         elfConfig.loadAsync()
             .then(function() {
                 const dir = elfConfig.get('users', lastname, 'base-dir');
-                expect(dir).toBe('/home/charlie/');
+                expect(dir).toBe(defaultDir);
             })
             .catch(errorHandler)
             .then(done);
@@ -90,9 +92,10 @@ describe('test elven-config suite', function() {
     it('shows we can set the lastname base dir', (done) => {
         elfConfig.loadAsync()
             .then(function(config) {
-                expect(config.users[lastname]['base-dir']).toBe('/home/charlie/');
-                const dir = elfConfig.set('/home/bcuser/', 'users', lastname, 'base-dir');
-                expect(config.users[lastname]['base-dir']).toBe('/home/bcuser/');
+                expect(config.users[lastname]['base-dir']).toBe(defaultDir);
+                const dir = elfConfig.set(checkDir, 'users', lastname, 'base-dir');
+                expect(config.users[lastname]['base-dir']).toBe(checkDir);
+                let dir2 = elfConfig.set(defaultDir, 'users', lastname, 'base-dir')
             })
             .catch(errorHandler)
             .then(done);
