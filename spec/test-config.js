@@ -5,7 +5,7 @@
 describe('test elven-config suite', function() {
     'use strict';
 
-    const lastname = 'calvert';
+    const lastname = 'pennock';
     const defaultDir = '/home/bcuser/';
     const checkDir = '/home/charlie';
     const elfConfig = require('../index').elfConfig;
