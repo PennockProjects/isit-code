@@ -6,7 +6,7 @@ describe('test elven-config suite', function() {
     'use strict';
 
     const lastname = 'pennock';
-    const defaultDir = '/home/ubuntu/';
+    const defaultDir = '/home/bcuser/';
     const checkDir = '/home/charlie';
     const elfConfig = require('../index').elfConfig;
     const elfUtils = require('../index').elfUtils;
